@@ -2,6 +2,25 @@
 using namespace std;
 int main()
 {
+  //PSUEDOCODE:
+    // main program
+    // Display Menu [a][b][c][d][e] choices.
+    // Ask for user's choice
+
+    // IF setting, "int or ext?"
+    // after the user chooses, the program then asks for the exact location to be filled in.
+    // return to menu. after the initial menu, the user is expected to type in a letter corresponding to their choice.
+    // This is for the sake of organization in the program output.
+    // IF character, indent and ask them to type in character name.
+    // return to menu.
+    // IF dialogue, indent and allow them to type dialogue.
+    // return to menu. 
+    // IF action, allow for user input.
+    //  return to menu.
+    // IF "finish script", display "You have completed your script. Look above to see your work". end program.
+    // loop until the user chooses to end the script.
+
+
   //For this program, I would like for the user to be able to choose the following options:
   // - setting (int or ext, they will also be allowed to write in a specific location)
   // - character
@@ -29,7 +48,7 @@ int main()
   // a loop will be used so that the user can continue writing the script as long as they want.
   // Switch statements will be used for each choice in the menu.
 
-  // No additional files will be needed. 
+  // No additional files will be needed.
 
   return 0;
 }
