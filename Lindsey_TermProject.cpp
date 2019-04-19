@@ -6,11 +6,21 @@ void character();
 void dialogue();
 void action();
 
+bool validInput (
+   int valueToCheck, // value to check
+   int minValue,              // minimum for value
+   int maxValue          // maximum for value
+);
+
+// easy way to switch your trace statements off and on
+const bool TRACE = false;
+
 int main()
 {
-    //    cerr << "Displaying Menu [a][b][c][d][e] choices" << endl;
+    if (TRACE) cerr << "Displaying Menu [a][b][c][d][e] choices" << endl;
     int userChoice; //user's choice in the menu.
     cout << "Welcome to ScriptWriter! Here are the options you can choose from to build your script." << endl;
+    // start a do-while here?
     cout << "Setting - Type '1'" << endl;
     cout << "Character - Type '2'" << endl;
     cout << "Dialogue - Type '3'" << endl;
@@ -18,9 +28,13 @@ int main()
     cout << "End Script - Type '5'" << endl;
     cin >> userChoice;
 
+
     //cerr << "looping until the user chooses to end the script." << endl;
+    // must do something to change userChoice during each iteration or you will
+    // get an infinite loop
     while (userChoice == 1 || userChoice == 2 || userChoice == 3 || userChoice == 4)
     {
+      if (TRACE) cerr << "iterating main loop" << endl;
         switch (userChoice)
         {
           case 1:
@@ -43,11 +57,13 @@ int main()
             void action();
             break;
           }
-        }
-        break;
-    }
+       } // end of block switch (userChoice)
 
-    //cerr << "IF finish script, displaying 'You have completed your script. Look above to see your work'. ending program." << endl;
+        // outside of the switch block, 'break' causes the loop to exit
+       break;
+    } // end of while loop
+
+    if (TRACE) cerr << "IF finish script, displaying 'You have completed your script. Look above to see your work'. ending program." << endl;
     if (userChoice == 5)
     {
       cout << "You have completed your script. Look above to see your work!";
@@ -58,6 +74,9 @@ int main()
     {
       cout << "Sorry, that number cannot be used. Please use a number between 1 and 5.";
     }
+
+    // end the do-while here???  with userChoice != exit?
+
     return 0;
 }
 
@@ -72,13 +91,23 @@ void setting(int interior, int exterior)
   cin >> locationChoice;
   interior = 1;
   exterior = 2;
-  if(locationChoice = interior)
+
+  validInput (
+     locationChoice, // value to check
+     1,              // minimum for value
+     2               // maximum for value
+  );
+  // if not 1 or 2, then squawk
+
+  // don't get caught!  double-equals!
+  if(locationChoice == interior)
   {
     cout << "INT.";
     //cerr << "asking for the exact location to be filled in." << endl;
     cin >> exactLocation;
   }
-  else if (locationChoice = exterior)
+  // here too!
+  else if (locationChoice == exterior)
   {
     cout << "EXT.";
     cin >> exactLocation;
@@ -91,21 +120,30 @@ void setting(int interior, int exterior)
 
 void character()
 {
-  //cerr << "IF character, indenting and asking them to type in character name."<< endl;
+  cerr << "IF character, indenting and asking them to type in character name."<< endl;
   int userCharacter;
   cout << "           ";
   cin >> userCharacter;
   }
 void dialogue()
 {
-    //cerr << "IF dialogue, indenting and allowing them to type dialogue." << endl;
+    cerr << "IF dialogue, indenting and allowing them to type dialogue." << endl;
 }
 void action()
 {
-    //cerr << "IF action, allowing for user input." << endl;
+    cerr << "IF action, allowing for user input." << endl;
 }
 
-
+bool validInput (
+   int valueToCheck, // value to check
+   int minValue,              // minimum for value
+   int maxValue          // maximum for value
+) {
+   if ((valueToCheck > maxValue) || (valueToCheck < minValue)) {
+      // we can put the min and max in the message to help the user
+      cout << "Invalid input. Please try again." << endl;
+   }
+}
 
   //For this program, I would like for the user to be able to choose the following options:
   // - setting (int or ext, they will also be allowed to write in a specific location)
