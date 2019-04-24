@@ -1,15 +1,14 @@
 #include <iostream>
 using namespace std;
 //function prototypes:
-void setting(int, int);
-void character();
-void dialogue();
-void action();
-
-bool validInput (
-   int valueToCheck, // value to check
-   int minValue,              // minimum for value
-   int maxValue          // maximum for value
+void setting(int, int); // allowing the user to create a setting
+void character(); // allowing the user to create or enter a character
+void dialogue(); // allowing the user to enter dialogue
+void action(); // allowing the user to add an action
+bool validInput ( //checks for errors in user input
+   int valueToCheck, // user input value to check
+   int minValue,     // minimum for user input
+   int maxValue      // maximum for user input
 );
 
 // easy way to switch your trace statements off and on
@@ -17,24 +16,23 @@ const bool TRACE = false;
 
 int main()
 {
-    if (TRACE) cerr << "Displaying Menu [a][b][c][d][e] choices" << endl;
+    //if (TRACE) cerr << "Displaying Menu [a][b][c][d][e] choices" << endl;
     int userChoice; //user's choice in the menu.
     cout << "Welcome to ScriptWriter! Here are the options you can choose from to build your script." << endl;
-    // start a do-while here?
-    cout << "Setting - Type '1'" << endl;
-    cout << "Character - Type '2'" << endl;
-    cout << "Dialogue - Type '3'" << endl;
-    cout << "Action - Type '4'" << endl;
-    cout << "End Script - Type '5'" << endl;
-    cin >> userChoice;
-
-
-    //cerr << "looping until the user chooses to end the script." << endl;
+    //loop for the program, so that the user can use it until they choose '5'.
+    do
+    {
+      cout << "Setting - Type '1'" << endl;
+      cout << "Character - Type '2'" << endl;
+      cout << "Dialogue - Type '3'" << endl;
+      cout << "Action - Type '4'" << endl;
+      cout << "End Script - Type '5'" << endl;
+      cin >> userChoice;
     // must do something to change userChoice during each iteration or you will
     // get an infinite loop
     while (userChoice == 1 || userChoice == 2 || userChoice == 3 || userChoice == 4)
     {
-      if (TRACE) cerr << "iterating main loop" << endl;
+      //if (TRACE) cerr << "iterating main loop" << endl;
         switch (userChoice)
         {
           case 1:
@@ -58,12 +56,11 @@ int main()
             break;
           }
        } // end of block switch (userChoice)
-
         // outside of the switch block, 'break' causes the loop to exit
-       break;
+      break;
     } // end of while loop
 
-    if (TRACE) cerr << "IF finish script, displaying 'You have completed your script. Look above to see your work'. ending program." << endl;
+    //if (TRACE) cerr << "IF finish script, displaying 'You have completed your script. Look above to see your work'. ending program." << endl;
     if (userChoice == 5)
     {
       cout << "You have completed your script. Look above to see your work!";
@@ -72,12 +69,12 @@ int main()
     //making sure that the user uses a number 1-5
     else if (userChoice > 5 || userChoice < 1)
     {
-      cout << "Sorry, that number cannot be used. Please use a number between 1 and 5.";
+      cout << "Sorry, that number cannot be used. Please use a number between 1 and 5." << endl;
+      break;
     }
-
-    // end the do-while here???  with userChoice != exit?
-
-    return 0;
+  }
+  while (userChoice != 5);
+  return 0;
 }
 
 void setting(int interior, int exterior)
