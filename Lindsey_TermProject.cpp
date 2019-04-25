@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 //function prototypes:
-void setting(int, int);
+void setting();
 void character();
 void dialogue();
 void action();
@@ -13,7 +13,7 @@ bool validInput (
 );
 
 // easy way to switch your trace statements off and on
-const bool TRACE = false;
+const bool TRACE = true;
 
 int main()
 {
@@ -39,28 +39,34 @@ int main()
         {
           case 1:
           {
-            void setting(int, int);
+            setting();
             break;
           }
           case 2:
           {
-            void character();
+            character();
             break;
           }
           case 3:
           {
-            void dialogue();
+            dialogue();
             break;
           }
           case 4:
           {
-            void action();
+            action();
             break;
           }
        } // end of block switch (userChoice)
 
         // outside of the switch block, 'break' causes the loop to exit
-       break;
+       //break;
+       cout << "Setting - Type '1'" << endl;
+       cout << "Character - Type '2'" << endl;
+       cout << "Dialogue - Type '3'" << endl;
+       cout << "Action - Type '4'" << endl;
+       cout << "End Script - Type '5'" << endl;
+       cin >> userChoice;
     } // end of while loop
 
     if (TRACE) cerr << "IF finish script, displaying 'You have completed your script. Look above to see your work'. ending program." << endl;
@@ -80,17 +86,17 @@ int main()
     return 0;
 }
 
-void setting(int interior, int exterior)
+void setting()
 {
-  //cerr << "IF user chooses setting, ask int or ext." << endl;
+  if (TRACE) cerr << "in function 'setting()': IF user chooses setting, ask int or ext." << endl;
   cout << "Int or Ext?" << endl;
   cout << "Int - Type '1'" << endl;
   cout << "Ext - Type '2'" << endl;
   int locationChoice;
   int exactLocation;
   cin >> locationChoice;
-  interior = 1;
-  exterior = 2;
+  const int INTERIOR = 1;
+  const int EXTERIOR = 2;
 
   validInput (
      locationChoice, // value to check
@@ -100,14 +106,14 @@ void setting(int interior, int exterior)
   // if not 1 or 2, then squawk
 
   // don't get caught!  double-equals!
-  if(locationChoice == interior)
+  if(locationChoice == INTERIOR)
   {
     cout << "INT.";
     //cerr << "asking for the exact location to be filled in." << endl;
     cin >> exactLocation;
   }
   // here too!
-  else if (locationChoice == exterior)
+  else if (locationChoice == EXTERIOR)
   {
     cout << "EXT.";
     cin >> exactLocation;
@@ -120,18 +126,18 @@ void setting(int interior, int exterior)
 
 void character()
 {
-  cerr << "IF character, indenting and asking them to type in character name."<< endl;
+  if (TRACE) cerr << "in function 'character()': indenting and asking them to type in character name."<< endl;
   int userCharacter;
   cout << "           ";
   cin >> userCharacter;
   }
 void dialogue()
 {
-    cerr << "IF dialogue, indenting and allowing them to type dialogue." << endl;
+    if (TRACE) cerr << "IF 'dialogue()', indenting and allowing them to type dialogue." << endl;
 }
 void action()
 {
-    cerr << "IF action, allowing for user input." << endl;
+    if (TRACE) cerr << "IF 'action()', allowing for user input." << endl;
 }
 
 bool validInput (
@@ -139,6 +145,8 @@ bool validInput (
    int minValue,              // minimum for value
    int maxValue          // maximum for value
 ) {
+   if (TRACE) cerr << "In function validInput(), valueToCheck is " << valueToCheck <<
+         ", minValue is " << minValue << ", maxValue is " << maxValue << endl;
    if ((valueToCheck > maxValue) || (valueToCheck < minValue)) {
       // we can put the min and max in the message to help the user
       cout << "Invalid input. Please try again." << endl;
