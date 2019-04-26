@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 //function prototypes:
-void setting(int, int); // allowing the user to create a setting
+void setting(); // allowing the user to create a setting
 void character(); // allowing the user to create or enter a character
 void dialogue(); // allowing the user to enter dialogue
 void action(); // allowing the user to add an action
@@ -11,12 +11,12 @@ bool validInput ( //checks for errors in user input
    int maxValue      // maximum for user input
 );
 
-// easy way to switch your trace statements off and on
+//switches trace statements off and on
 const bool TRACE = false;
 
 int main()
 {
-    //if (TRACE) cerr << "Displaying Menu [a][b][c][d][e] choices" << endl;
+    if (TRACE) cerr << "Displaying Menu [a][b][c][d][e] choices" << endl;
     int userChoice; //user's choice in the menu.
     cout << "Welcome to ScriptWriter! Here are the options you can choose from to build your script." << endl;
     //loop for the program, so that the user can use it until they choose '5'.
@@ -28,39 +28,39 @@ int main()
       cout << "Action - Type '4'" << endl;
       cout << "End Script - Type '5'" << endl;
       cin >> userChoice;
-    // must do something to change userChoice during each iteration or you will
-    // get an infinite loop
-    while (userChoice == 1 || userChoice == 2 || userChoice == 3 || userChoice == 4)
-    {
-      //if (TRACE) cerr << "iterating main loop" << endl;
+
+      //if the user input is correct
+      while (userChoice == 1 || userChoice == 2 || userChoice == 3 || userChoice == 4)
+      {
+        //if (TRACE) cerr << "iterating main loop" << endl;
         switch (userChoice)
         {
           case 1:
           {
-            void setting(int, int);
+            setting(); //running setting
             break;
           }
           case 2:
           {
-            void character();
+            character(); //running character
             break;
           }
           case 3:
           {
-            void dialogue();
+            dialogue(); //running dialogue
             break;
           }
           case 4:
           {
-            void action();
+            action(); //running action
             break;
           }
        } // end of block switch (userChoice)
-        // outside of the switch block, 'break' causes the loop to exit
-      break;
+        cin >> userChoice; //allowing the user to enter another choice
     } // end of while loop
 
-    //if (TRACE) cerr << "IF finish script, displaying 'You have completed your script. Look above to see your work'. ending program." << endl;
+    //if the user wishes to exit
+    if (TRACE) cerr << "IF finish script, displaying 'You have completed your script. Look above to see your work'. ending program." << endl;
     if (userChoice == 5)
     {
       cout << "You have completed your script. Look above to see your work!";
@@ -70,103 +70,87 @@ int main()
     else if (userChoice > 5 || userChoice < 1)
     {
       cout << "Sorry, that number cannot be used. Please use a number between 1 and 5." << endl;
-      break;
     }
   }
-  while (userChoice != 5);
+  while (userChoice != 5); // end of do while loop
   return 0;
 }
 
-void setting(int interior, int exterior)
+void setting() // contents of setting
 {
-  //cerr << "IF user chooses setting, ask int or ext." << endl;
+  const int INTERIOR = 1;
+  const int EXTERIOR = 2;
+  //prompting the user for int or ext
+  if (TRACE) cerr << "IF user chooses setting, ask int or ext." << endl;
   cout << "Int or Ext?" << endl;
   cout << "Int - Type '1'" << endl;
   cout << "Ext - Type '2'" << endl;
-  int locationChoice;
-  int exactLocation;
+  int locationChoice; //chosing between int and ext
+  string exactLocation; //entering exact location
   cin >> locationChoice;
-  interior = 1;
-  exterior = 2;
 
+  //input validation
   validInput (
      locationChoice, // value to check
      1,              // minimum for value
      2               // maximum for value
   );
-  // if not 1 or 2, then squawk
 
-  // don't get caught!  double-equals!
-  if(locationChoice == interior)
+  // while the user input matches a valid input
+  while (validInput)
   {
-    cout << "INT.";
-    //cerr << "asking for the exact location to be filled in." << endl;
-    cin >> exactLocation;
+    if(locationChoice == INTERIOR) //if int
+    {
+      cout << "                  INT.";
+      if (TRACE) cerr << "asking for the exact location to be filled in." << endl;
+      cin >> exactLocation;
+    }
+    else if (locationChoice == EXTERIOR) //if ext
+    {
+      cout << "                  EXT.";
+      cin >> exactLocation;
+    }
+  break;
   }
-  // here too!
-  else if (locationChoice == exterior)
-  {
-    cout << "EXT.";
-    cin >> exactLocation;
-  }
-  else if (locationChoice > 2 || locationChoice < 1)
+  //if the input is invalid
+  if (locationChoice > 2 || locationChoice < 1)
   {
     cout << "Sorry, you cannot use that number. Please use a number between 1 and 2.";
   }
 }
 
-void character()
+void character() //contents of character
 {
-  cerr << "IF character, indenting and asking them to type in character name."<< endl;
-  int userCharacter;
-  cout << "           ";
+  if (TRACE) cerr << "IF character, indenting and asking them to type in character name."<< endl;
+  string userCharacter; //allows the user to enter a character
+  cout << "                  ";
   cin >> userCharacter;
   }
-void dialogue()
+
+void dialogue() //contents of dialogue
 {
-    cerr << "IF dialogue, indenting and allowing them to type dialogue." << endl;
-}
-void action()
-{
-    cerr << "IF action, allowing for user input." << endl;
+  if (TRACE) cerr << "IF dialogue, indenting and allowing them to type dialogue." << endl;
+  cout << "             ";
+  string dialogueInput; // allows the user to enter dialogue
+  cin >> dialogueInput;
 }
 
-bool validInput (
+void action() //contents of action
+{
+    if (TRACE) cerr << "IF action, allowing for user input." << endl;
+    string actionInput; // allows the user to enter dialogue
+    cin >> actionInput;
+}
+
+bool validInput (    //contents of validInput
    int valueToCheck, // value to check
-   int minValue,              // minimum for value
-   int maxValue          // maximum for value
-) {
-   if ((valueToCheck > maxValue) || (valueToCheck < minValue)) {
-      // we can put the min and max in the message to help the user
-      cout << "Invalid input. Please try again." << endl;
+   int minValue,     // minimum for value
+   int maxValue      // maximum for value
+)
+{
+  //if the value being examined is invalid
+   if ((valueToCheck > maxValue) || (valueToCheck < minValue))
+   {
+      cout << "Sorry, that number cannot be used. Please use a number between 1 and 5." << endl;
    }
 }
-
-  //For this program, I would like for the user to be able to choose the following options:
-  // - setting (int or ext, they will also be allowed to write in a specific location)
-  // - character
-  // - dialogue
-  // - character actions
-  // - an option to finish the script
-  // The program should also indent properly as a script should.
-  // The user will type in their data and the program will format their input in the form of a scriptwriting tool.
-  // The purpose of the program is to give the user a draft of a script.
-
-  // The program's sequence of specific actions are:
-  // - a menu that the user will see, stating if the user wants to establish a new setting, have a character say something, describe an onscreen action, or finish the script.
-  // According to the user's choice:
-  // - "int or ext?" followed by a user input of the user's specific location for a new setting,
-  // - "Input character name", followed by a user input of the user's character name and then dropping down to the following line for dialogue,
-  // - a proper indent and user input for dialogue,
-  // - a user input for character action,
-  // - "You have completed your script. Look above to see your work" if the user has decided that the script is finished. The program will then close.
-
-  // The sequence of actions that the user will take will be dependent on what the user chooses in the menu.
-
-  //The results will be a draft of a script.
-
-  // Calcualtions and Logic:
-  // a loop will be used so that the user can continue writing the script as long as they want.
-  // Switch statements will be used for each choice in the menu.
-
-  // No additional files will be needed.
