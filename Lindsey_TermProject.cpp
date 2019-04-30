@@ -1,5 +1,6 @@
 #include <iostream>
 using namespace std;
+
 //function prototypes:
 void setting(); // allowing the user to create a setting
 void character(); // allowing the user to create or enter a character
@@ -65,11 +66,24 @@ int main()
     {
       cout << "You have completed your script. Look above to see your work!";
     }
+    //calling validInput
+    validInput(
+      userChoice,
+      1,
+      5
+    );
 
     //making sure that the user uses a number 1-5
-    else if (userChoice > 5 || userChoice < 1)
+    if (validInput)
     {
-      cout << "Sorry, that number cannot be used. Please use a number between 1 and 5." << endl;
+      //running validInput
+    }
+    //if the user enters a letter instead of a number.
+    if(cin.fail())
+    {
+      //disregarding error by ignoring number
+      cin.clear();
+      cin.ignore();
     }
   }
   while (userChoice != 5); // end of do while loop
@@ -104,6 +118,8 @@ void setting() // contents of setting
       cout << "                  INT.";
       if (TRACE) cerr << "asking for the exact location to be filled in." << endl;
       cin >> exactLocation;
+      //allowing spaces and punctuation
+      getline(cin, exactLocation);
     }
     else if (locationChoice == EXTERIOR) //if ext
     {
@@ -125,6 +141,8 @@ void character() //contents of character
   string userCharacter; //allows the user to enter a character
   cout << "                  ";
   cin >> userCharacter;
+  //allowing spaces and punctuation
+  getline(cin, userCharacter);
   }
 
 void dialogue() //contents of dialogue
@@ -133,6 +151,8 @@ void dialogue() //contents of dialogue
   cout << "             ";
   string dialogueInput; // allows the user to enter dialogue
   cin >> dialogueInput;
+  //allowing spaces and punctuation
+  getline(cin, dialogueInput);
 }
 
 void action() //contents of action
@@ -140,6 +160,8 @@ void action() //contents of action
     if (TRACE) cerr << "IF action, allowing for user input." << endl;
     string actionInput; // allows the user to enter dialogue
     cin >> actionInput;
+    //allowing spaces and punctuation
+    getline(cin, actionInput);
 }
 
 bool validInput (    //contents of validInput
